@@ -1,7 +1,10 @@
 import { servicios } from "@/data/servicios";
 
-export default function Detalle({ params }: { params: { slug: string } }) {
-  const s = servicios.find(x => x.slug === params.slug);
+export default async function Page({
+  params,
+}: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;                 // 👈 importante
+  const s = servicios.find(x => x.slug === slug);
   if (!s) return <main className="p-6">No encontrado</main>;
   return (
     <main className="mx-auto max-w-3xl p-6">
